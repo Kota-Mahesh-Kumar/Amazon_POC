@@ -60,7 +60,7 @@ def plots_by_area():
 
     # Set the x-axis labels
     ax1.set_xticks(x)
-    ax1.set_xticklabels(df["Category"], fontsize = 12 )
+    ax1.set_xticklabels(df["Category"], rotation=45,fontsize = 12 )
 
     # Set the y-axis label
     ax1.set_yticks([])
@@ -83,7 +83,6 @@ def plots_by_area():
                         textcoords="offset points",
                         ha='center', va='bottom')
 
-    # Use st.pyplot() to display the plot in Streamlit
     col1.pyplot(fig1)
 
 
