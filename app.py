@@ -140,9 +140,9 @@ critical_attributes_list.insert(0, 'All')
 
 col1, col2, col3, col4 = st.columns(4)
 with col1:
-    cat = st.selectbox("Choose Category", ["Electronics", "Home & Kitchen", "Grocery & Gourmet", "Beauty", "Health & Personal Care"])
+    cat = st.selectbox("Choose Category", ["All","Electronics", "Home & Kitchen", "Grocery & Gourmet", "Beauty", "Health & Personal Care"])
 with col2:
-    sub_cat = st.selectbox("Choose Sub-Category", ['Sofas & Couches', 'Tv & Entertainment Units', 'Jars & Containers', 'Drinks', 'Container Insulators', 'Tea lights'])
+    sub_cat = st.selectbox("Choose Sub-Category", ["All", 'Sofas & Couches', 'Tv & Entertainment Units', 'Jars & Containers', 'Drinks', 'Container Insulators', 'Tea lights'])
 with col3:
     asin = st.selectbox("ASIN",asin_list)
 with col4:
