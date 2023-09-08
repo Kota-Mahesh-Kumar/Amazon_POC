@@ -174,11 +174,14 @@ plots_by_area()
 
 st.write('')
 
-dataframe_to_display = df_original.iloc[:,0:19]
+dataframe_to_display = df_original.iloc[:,0:18]
 
 
 # Display the styled DataFrame
-st.dataframe(dataframe_to_display)
+try:
+   st.dataframe(dataframe_to_display)
+except:
+    st.write(dataframe_to_display)
 
 
 def download_dataframe():
