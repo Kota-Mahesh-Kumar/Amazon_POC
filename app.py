@@ -90,8 +90,8 @@ def plots_by_area():
     stacked_data = {
         "Category": ["Length", "Breadth", "Height", "Radius", "Item Weight", "Net Quantity", "Material", "Colour"],
         "Data NA": [5, 2, 0, 3, 0, 1, 0, 2],
-        "Match Count": [10, 15, 5, 8, 12, 6, 9, 7],
-        "Mismatch Count": [15, 12, 8, 5, 18, 10, 13, 11],
+        "Match Percentage (%)": [10, 15, 5, 8, 12, 6, 9, 7],
+        "Mismatch Percentage (%)": [15, 12, 8, 5, 18, 10, 13, 11],
     }
 
     stacked_df = pd.DataFrame(stacked_data)
@@ -106,7 +106,7 @@ def plots_by_area():
 
     # ax2.set_ylabel("Percentage (%)")  
 
-    total_values = stacked_df[["Data NA", "Mismatch Count", "Match Count"]].sum(axis=1)
+    total_values = stacked_df[["Data NA", "Mismatch Percentage(%)", "Match Percentage(%)"]].sum(axis=1)
 
     percentages = (total_values / total_values.sum()) * 100
 
