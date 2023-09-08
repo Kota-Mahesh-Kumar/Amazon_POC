@@ -174,9 +174,8 @@ plots_by_area()
 
 st.write('')
 
-dataframe_to_display = df_original.iloc[:,0:7]
-dataframe_to_display.rename(columns={'ASIN': 'ASIN', 'Length_mf': 'IR_Length', 'Breadth_mf' :'IR_Breadth', 'Height_mf' : 'IR_Height', 'Radius_mf' :'IR_Radius', 'Item Weight_mf': 'IR_Item_Weight', 'Net Quantity_mf: 'IR_Net_Quantity', 'Color' :'Color'}, inplace=True)
-
+dataframe_to_display = df_original.iloc[:,0:8]
+dataframe_to_display.rename(columns={'ASIN': 'ASIN', 'Length_mf': 'IR_Length', 'Breadth_mf' :'IR_Breadth', 'Height_mf' : 'IR_Height', 'Radius_mf' :'IR_Radius', 'Item Weight_mf': 'IR_Item_Weight', 'Net Quantity_mf: 'IR_Net_Quantity', 'Color' :'IR_Color'}, inplace=True)
 
 
 # Display the styled DataFrame
