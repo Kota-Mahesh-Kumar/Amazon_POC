@@ -100,13 +100,13 @@ def plots_by_area():
 
     bottom = np.zeros(len(stacked_df))
 
-    for col_name in ["Data NA", "Mismatch Count", "Match Count"]:
+    for col_name in ["Data NA", "Mismatch Percentage(%)", "Match Percentage(%)"]:
         ax2.bar(stacked_df["Category"], stacked_df[col_name], label=col_name, bottom=bottom)
         bottom += stacked_df[col_name]
 
     # ax2.set_ylabel("Percentage (%)")  
 
-    total_values = stacked_df[["Data NA", "Mismatch Percentage(%)", "Match Percentage(%)"]].sum(axis=1)
+    total_values = stacked_df[["Data NA", "Mismatch Count", "Match Count"]].sum(axis=1)
 
     percentages = (total_values / total_values.sum()) * 100
 
