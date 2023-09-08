@@ -174,34 +174,8 @@ plots_by_area()
 
 st.write('')
 
-dataframe_to_display = df_original.iloc[:,0:16]
-st.markdown("""
-<style>
-    .centered-header {
-        text-align: center;
-    }
-</style>
-""", unsafe_allow_html=True)
-st.markdown('<h1 class="centered-header">Data Table</h1>', unsafe_allow_html=True)
-def highlight_missing_data(s):
-    """Highlight missing data in red."""
-    missing = s.isna()
-    return ['background-color: grey' if m else '' for m in missing]
-# styled_df = dataframe_to_display.style.apply(highlight_missing_data)
+dataframe_to_display = df_original.iloc[:,0:19]
 
-def make_column_bold(data, column_name):
-    """
-    Make a specific column bold using CSS.
-    """
-    styles = []
-    for idx, value in enumerate(data[column_name]):
-        style = f'font-weight: bold;' if idx == 0 else ''  # Make the first row bold
-        styles.append(style)
-    return styles
-
-# styled_df = dataframe_to_display.style.apply(lambda x: ['font-weight: bold' if x.name == "ASIN" else '' for _ in x], axis=0)
-
-styled_df = dataframe_to_display.style.applymap(lambda x: 'font-weight: bold')
 
 # Display the styled DataFrame
 st.dataframe(dataframe_to_display)
@@ -233,3 +207,31 @@ st.download_button(
 #     """,
 #     unsafe_allow_html=True
 # )
+
+# st.markdown("""
+# <style>
+#     .centered-header {
+#         text-align: center;
+#     }
+# </style>
+# """, unsafe_allow_html=True)
+# st.markdown('<h1 class="centered-header">Data Table</h1>', unsafe_allow_html=True)
+# def highlight_missing_data(s):
+#     """Highlight missing data in red."""
+#     missing = s.isna()
+#     return ['background-color: grey' if m else '' for m in missing]
+# # styled_df = dataframe_to_display.style.apply(highlight_missing_data)
+
+# def make_column_bold(data, column_name):
+#     """
+#     Make a specific column bold using CSS.
+#     """
+#     styles = []
+#     for idx, value in enumerate(data[column_name]):
+#         style = f'font-weight: bold;' if idx == 0 else ''  # Make the first row bold
+#         styles.append(style)
+#     return styles
+
+# # styled_df = dataframe_to_display.style.apply(lambda x: ['font-weight: bold' if x.name == "ASIN" else '' for _ in x], axis=0)
+
+# styled_df = dataframe_to_display.style.applymap(lambda x: 'font-weight: bold')
