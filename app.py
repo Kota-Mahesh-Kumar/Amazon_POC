@@ -174,7 +174,7 @@ plots_by_area()
 
 st.write('')
 
-dataframe_to_display = df_original.iloc[:,0:18]
+dataframe_to_display = df_original.iloc[:,0:14]
 
 
 # Display the styled DataFrame
