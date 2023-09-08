@@ -90,8 +90,8 @@ def plots_by_area():
     stacked_data = {
         "Category": ["Length", "Breadth", "Height", "Radius", "Item Weight", "Net Quantity", "Material", "Colour"],
         "Data NA": [5, 2, 0, 3, 0, 1, 0, 2],
-        "Match Percentage (%)": [10, 15, 5, 8, 12, 6, 9, 7],
-        "Mismatch Percentage (%)": [15, 12, 8, 5, 18, 10, 13, 11],
+        "Match Percentage(%)": [10, 15, 5, 8, 12, 6, 9, 7],
+        "Mismatch Percentage(%)": [15, 12, 8, 5, 18, 10, 13, 11],
     }
 
     stacked_df = pd.DataFrame(stacked_data)
