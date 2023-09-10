@@ -214,7 +214,7 @@ def create_comparison_dataframe(df):
         comparison_data[column] = [
             "NONE" if df[column].iloc[i] is None or df[f"IR_{column}"].iloc[i] is None
             else "MATCH" if extract_numerical(df[column].iloc[i]) == extract_numerical(df[f"IR_{column}"].iloc[i])
-            else "MIS-MATCH"
+            else "MISMATCH"
             for i in range(len(df))
         ]
 
