@@ -224,13 +224,6 @@ comparison_df = create_comparison_dataframe(dataframe_to_display)
 styled_comparison_df = comparison_df.style.applymap(lambda cell: 'background-color: green' if cell == 'MATCH' else ('background-color: #df5220' if cell == 'MISMATCH' else ''), subset=comparison_df.columns[1:])
 st.dataframe(styled_comparison_df, use_container_width = True)
 
-# # Display the styled DataFrame
-# try:
-#    st.dataframe(dataframe_to_display)
-# except:
-#     st.write(dataframe_to_display)
-
-
 def download_dataframe():
     csv = dataframe_to_display.to_csv(index=False)
     return csv
