@@ -197,15 +197,38 @@ st.markdown("""
 """, unsafe_allow_html=True)
 st.markdown('<h1 class="centered-header">Data Table</h1>', unsafe_allow_html=True)
 
-dataframe_to_display = df_original.iloc[:,0:14]
-dataframe_to_display.rename(columns={'ASIN': 'ASIN', 'Length_mf': 'IR_Length', 'Breadth_mf' :'IR_Breadth', 'Height_mf' : 'IR_Height', 'Radius_mf' :'IR_Radius', 'Item Weight_mf': 'IR_Item_Weight', 'Net Quantity_mf': 'IR_Net_Quantity', 'Material_mf' : 'IR_Material','Colour_mf' :'IR_Colour'}, inplace=True)
+dataframe_to_display = df_original.iloc[:,0:18]
+dataframe_to_display.rename(columns={'ASIN': 'ASIN', 'Length_mf': 'IR_Length', 'Breadth_mf' :'IR_Breadth', 'Height_mf' : 'IR_Height', 'Radius_mf' :'IR_Radius', 'Item Weight_mf': 'IR_Item Weight', 'Net Quantity_mf': 'IR_Net Quantity', 'Material_mf' : 'IR_Material','Colour_mf' :'IR_Colour'}, inplace=True)
+def extract_numerical(s):
+    try:
+        s = "".join(c for c in s if c.isdigit() or c == ".")
+        return float(s) if s else None  # Convert to float if not empty, else return None
+    except (TypeError, ValueError):
+        return None
 
+def create_comparison_dataframe(df):
+    columns_to_compare = ["Length", "Breadth", "Height", "Colour", "Material", "Radius", "Item Weight", "Net Quantity" ]
+    comparison_data = {"ASIN": df["ASIN"]}
+    
+    for column in columns_to_compare:
+        comparison_data[column] = [
+            "NONE" if df[column].iloc[i] is None or df[f"IR_{column}"].iloc[i] is None
+            else "MATCH" if extract_numerical(df[column].iloc[i]) == extract_numerical(df[f"IR_{column}"].iloc[i])
+            else "MIS-MATCH"
+            for i in range(len(df))
+        ]
 
-# Display the styled DataFrame
-try:
-   st.dataframe(dataframe_to_display)
-except:
-    st.write(dataframe_to_display)
+    comparison_df = pd.DataFrame(comparison_data)
+    return comparison_df
+comparison_df = create_comparison_dataframe(dataframe_to_display)
+styled_comparison_df = comparison_df.style.applymap(lambda cell: 'background-color: green' if cell == 'MATCH' else ('background-color: red' if cell == 'MIS-MATCH' else ''), subset=comparison_df.columns[1:])
+st.dataframe(styled_comparison_df, use_container_width = True)
+
+# # Display the styled DataFrame
+# try:
+#    st.dataframe(dataframe_to_display)
+# except:
+#     st.write(dataframe_to_display)
 
 
 def download_dataframe():
