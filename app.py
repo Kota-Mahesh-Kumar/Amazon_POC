@@ -221,7 +221,7 @@ def create_comparison_dataframe(df):
     comparison_df = pd.DataFrame(comparison_data)
     return comparison_df
 comparison_df = create_comparison_dataframe(dataframe_to_display)
-styled_comparison_df = comparison_df.style.applymap(lambda cell: 'background-color: green' if cell == 'MATCH' else ('background-color: orange' if cell == 'MISMATCH' else ''), subset=comparison_df.columns[1:])
+styled_comparison_df = comparison_df.style.applymap(lambda cell: 'background-color: green' if cell == 'MATCH' else ('background-color: #ff7f0e' if cell == 'MISMATCH' else ''), subset=comparison_df.columns[1:])
 st.dataframe(styled_comparison_df, use_container_width = True)
 
 def download_dataframe():
