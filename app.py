@@ -195,7 +195,7 @@ st.markdown("""
     }
 </style>
 """, unsafe_allow_html=True)
-st.markdown('<h1 class="centered-header">Data Table</h1>', unsafe_allow_html=True)
+st.markdown('<h1 class="centered-header">Summary Table</h1>', unsafe_allow_html=True)
 
 dataframe_to_display = df_original.iloc[:,0:18]
 dataframe_to_display.rename(columns={'ASIN': 'ASIN', 'Length_mf': 'IR_Length', 'Breadth_mf' :'IR_Breadth', 'Height_mf' : 'IR_Height', 'Radius_mf' :'IR_Radius', 'Item Weight_mf': 'IR_Item Weight', 'Net Quantity_mf': 'IR_Net Quantity', 'Material_mf' : 'IR_Material','Colour_mf' :'IR_Colour'}, inplace=True)
