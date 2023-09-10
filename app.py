@@ -198,7 +198,7 @@ st.markdown("""
 st.markdown('<h1 class="centered-header">Data Table</h1>', unsafe_allow_html=True)
 
 dataframe_to_display = df_original.iloc[:,0:14]
-dataframe_to_display.rename(columns={'ASIN': 'ASIN', 'Length_mf': 'IR_Length', 'Breadth_mf' :'IR_Breadth', 'Height_mf' : 'IR_Height', 'Radius_mf' :'IR_Radius', 'Item Weight_mf': 'IR_Item_Weight', 'Net Quantity_mf': 'IR_Net_Quantity', 'Colour_mf' :'IR_Colour'}, inplace=True)
+dataframe_to_display.rename(columns={'ASIN': 'ASIN', 'Length_mf': 'IR_Length', 'Breadth_mf' :'IR_Breadth', 'Height_mf' : 'IR_Height', 'Radius_mf' :'IR_Radius', 'Item Weight_mf': 'IR_Item_Weight', 'Net Quantity_mf': 'IR_Net_Quantity', 'Material_mf' : 'IR_Material','Colour_mf' :'IR_Colour'}, inplace=True)
 
 
 # Display the styled DataFrame
