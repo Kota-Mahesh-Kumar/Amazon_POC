@@ -60,7 +60,7 @@ def plots_by_area():
 
     # Set the x-axis labels
     ax1.set_xticks(x)
-    ax1.set_xticklabels(df["Category"], fontsize = 12 )
+    ax1.set_xticklabels(df["Category"],rotation = 45, fontsize = 12 )
 
     # Set the y-axis label
     ax1.set_yticks([])
