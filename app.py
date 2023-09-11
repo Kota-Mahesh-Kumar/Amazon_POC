@@ -104,11 +104,11 @@ def plots_by_area():
         bottom += stacked_df[col_name]
         
         # Annotate the bar values
-        for bar, value in zip(bars, stacked_df[col_name]):
-            ax2.annotate(str(value), xy=(bar.get_x() + bar.get_width() / 2, bar.get_height()), xytext=(0, 3), 
-                        textcoords='offset points', ha='center', va='center')
+        # for bar, value in zip(bars, stacked_df[col_name]):
+        #     ax2.annotate(str(value), xy=(bar.get_x() + bar.get_width() / 2, bar.get_height()), xytext=(0, 3), 
+        #                 textcoords='offset points', ha='center', va='center')
 
-        ax2.set_yticks([])
+        ax2.set_yticklabels([f'{i}%' for i in range(0, 101, 10)])  # Set y-tick labels as percentages from 0% to 100%
 
         ax2.set_xticklabels(stacked_df["Category"], rotation=45, ha="right")
         ax2.set_title("Percentage by Critical Attributes", fontsize=16)
