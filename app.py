@@ -11,7 +11,7 @@ import matplotlib.pyplot as plt
 
 
 # Read the data
-excel_path =r"Amazon_Dimension_analysis_Dashboard_v1.xlsx"
+excel_path =r"C:\Users\mahes\OneDrive\Desktop\Amazon_Dimension_Analysis_v6 (1).xlsx"
 # df = pd.read_excel(excel_path, sheet_name = 0)
 
 # st.title("Dimension Analysis")
