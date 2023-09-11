@@ -31,7 +31,7 @@ def data_for_streamlit(excel_path):
     data.drop("Unnamed: 0", axis = 1, inplace = True)
     data = data[1:]
     data.columns = data.iloc[0]
-    data.columns.values[1:9] = [col + '_mf' for col in data.columns[1:9]]
+    data.columns.values[1:11] = [col + '_mf' for col in data.columns[1:11]]
     data = data.iloc[1:]
     data.reset_index(drop=True, inplace=True)
 
@@ -41,9 +41,9 @@ def plots_by_area():
     col1, col2 = st.columns(2)
 
     data = {
-        "Category": ["Electronics", "Home & Kitchen", "Grocery & Gourmet", "Beauty", "Health & Personal Care"],
-        "Total Count": [10, 15, 20, 35, 21],
-        "Mismatch Count": [5, 8, 12, 11, 6],
+        "Category": ["cat1", "cat2", "cat3"],
+        "Total Count": [10, 15, 20],
+        "Mismatch Count": [5, 8, 12],
     }
 
     df = pd.DataFrame(data)
@@ -60,7 +60,7 @@ def plots_by_area():
 
     # Set the x-axis labels
     ax1.set_xticks(x)
-    ax1.set_xticklabels(df["Category"], rotation=45,fontsize = 12 )
+    ax1.set_xticklabels(df["Category"], fontsize = 12 )
 
     # Set the y-axis label
     ax1.set_yticks([])
@@ -83,14 +83,14 @@ def plots_by_area():
                         textcoords="offset points",
                         ha='center', va='bottom')
 
+    # Use st.pyplot() to display the plot in Streamlit
     col1.pyplot(fig1)
 
-
     stacked_data = {
-        "Category": ["Length", "Breadth", "Height", "Radius", "Item Weight", "Net Quantity", "Material", "Colour"],
-        "Data NA": [5, 2, 0, 3, 0, 1, 0, 2],
-        "Match Percentage(%)": [10, 15, 5, 8, 12, 6, 9, 7],
-        "Mismatch Percentage(%)": [15, 12, 8, 5, 18, 10, 13, 11],
+        "Category": ["Length", "Breadth", "Height","Width", "Depth", "Radius", "Item Weight", "Net Quantity", "Material", "Colour"],
+        "Data NA": [3, 4, 0,7, 2,  3, 0, 1, 0, 2],
+        "Match Count": [10, 15, 5,5,9, 8, 12, 6, 9, 7],
+        "Mismatch Count": [15, 12, 8, 6, 7,5, 18, 10, 13, 11],
     }
 
     stacked_df = pd.DataFrame(stacked_data)
@@ -99,23 +99,20 @@ def plots_by_area():
 
     bottom = np.zeros(len(stacked_df))
 
-    for col_name in ["Data NA", "Mismatch Percentage(%)", "Match Percentage(%)"]:
-        ax2.bar(stacked_df["Category"], stacked_df[col_name], label=col_name, bottom=bottom)
+    for col_name in ["Data NA", "Mismatch Count", "Match Count"]:
+        bars = ax2.bar(stacked_df["Category"], stacked_df[col_name], label=col_name, bottom=bottom)
         bottom += stacked_df[col_name]
+        
+        # Annotate the bar values
+        for bar, value in zip(bars, stacked_df[col_name]):
+            ax2.annotate(str(value), xy=(bar.get_x() + bar.get_width() / 2, bar.get_height()), xytext=(0, 3), 
+                        textcoords='offset points', ha='center', va='center')
 
-    # ax2.set_ylabel("Percentage (%)")  
+        ax2.set_yticks([])
 
-    total_values = stacked_df[["Data NA", "Mismatch Percentage(%)", "Match Percentage(%)"]].sum(axis=1)
-
-    percentages = (total_values / total_values.sum()) * 100
-
-    # Set y-axis ticks and labels from 0 to 100
-    ax2.set_yticks(np.arange(0, 101, 10))
-    ax2.set_yticklabels([f"{int(percentage)}%" for percentage in np.arange(0, 101, 10)])
-
-    ax2.set_xticklabels(stacked_df["Category"], rotation=45, ha="right")
-    ax2.set_title("Percentage by Critical Attributes", fontsize=16)
-    ax2.legend()
+        ax2.set_xticklabels(stacked_df["Category"], rotation=45, ha="right")
+        ax2.set_title("Counts by Critical Attributes", fontsize=16)
+        ax2.legend()
     col2.pyplot(fig2)
 
 st.set_page_config(layout="wide")
@@ -123,25 +120,26 @@ st.set_page_config(layout="wide")
 
 st.markdown(
     """
-    <h1 style="text-align:center;">Critical Attribute Analysis</h1>
+    <h1 style="text-align:center;">Dimension Analysis</h1>
     """,
     unsafe_allow_html=True
 )
 
 # set_page_config()
 df_original, columns = data_for_streamlit(excel_path)
-
+df_original.fillna('', inplace = True)
+df_original.replace(['-'], '', inplace = True)
 asin_list = df_original['ASIN'].tolist() 
 asin_list.insert(0, "All")
 
-critical_attributes_list = df_original.columns[9:16].tolist()
+critical_attributes_list = df_original.columns[11:22].tolist()
 critical_attributes_list.insert(0, 'All')
 
 col1, col2, col3, col4 = st.columns(4)
 with col1:
-    cat = st.selectbox("Choose Category", ["All","Electronics", "Home & Kitchen", "Grocery & Gourmet", "Beauty", "Health & Personal Care"])
+    cat = st.selectbox("Category", ['Cat 1', 'Cat 2', 'Cat 3'])
 with col2:
-    sub_cat = st.selectbox("Choose Sub-Category", ["All", 'Sofas & Couches', 'Tv & Entertainment Units', 'Jars & Containers', 'Drinks', 'Container Insulators', 'Tea lights'])
+    sub_cat = st.selectbox("Sub-Category", ['Sub Cat1', 'Sub Cat2', 'Sub Cat3'])
 with col3:
     asin = st.selectbox("ASIN",asin_list)
 with col4:
@@ -173,32 +171,16 @@ plots_by_area()
 
 st.write('')
 
-st.markdown(
-    """
-    <style>
-    .sidebar .sidebar-content {
-        flex-direction: column;
-    }
-    .block-container {
-        display: flex;
-        flex-direction: column-reverse;
-    }
-    </style>
-    """,
-    unsafe_allow_html=True
-)
+dataframe_to_display = df_original.iloc[:,0:22]
+dataframe_to_display.rename(columns={'ASIN': 'ASIN', 'Length_mf': 'IR_Length', 'Breadth_mf' :'IR_Breadth', 'Height_mf' : 'IR_Height', 'Width_mf' : 'IR_Width', 'Depth_mf' : 'IR_Depth', 'Radius_mf' :'IR_Radius', 'Item Weight_mf': 'IR_Item Weight', 'Net Quantity_mf': 'IR_Net Quantity', 'Material_mf' : 'IR_Material','Colour_mf' :'IR_Colour'}, inplace=True)
 
-st.markdown("""
-<style>
-    .centered-header {
-        text-align: center;
-    }
-</style>
-""", unsafe_allow_html=True)
-st.markdown('<h1 class="centered-header">Summary Table</h1>', unsafe_allow_html=True)
+styled_df = dataframe_to_display.style.apply(lambda x: ['font-weight: bold' if x.name == "ASIN" else '' for _ in x], axis=0)
 
-dataframe_to_display = df_original.iloc[:,0:18]
-dataframe_to_display.rename(columns={'ASIN': 'ASIN', 'Length_mf': 'IR_Length', 'Breadth_mf' :'IR_Breadth', 'Height_mf' : 'IR_Height', 'Radius_mf' :'IR_Radius', 'Item Weight_mf': 'IR_Item Weight', 'Net Quantity_mf': 'IR_Net Quantity', 'Material_mf' : 'IR_Material','Colour_mf' :'IR_Colour'}, inplace=True)
+styled_df = dataframe_to_display.style.applymap(lambda x: 'font-weight: bold')
+
+
+
+
 def extract_numerical(s):
     try:
         s = "".join(c for c in s if c.isdigit() or c == ".")
@@ -207,7 +189,7 @@ def extract_numerical(s):
         return None
 
 def create_comparison_dataframe(df):
-    columns_to_compare = ["Length", "Breadth", "Height", "Colour", "Material", "Radius", "Item Weight", "Net Quantity" ]
+    columns_to_compare = ["Length", "Breadth", "Height", "Width","Depth","Colour", "Material", "Radius", "Item Weight", "Net Quantity" ]
     comparison_data = {"ASIN": df["ASIN"]}
     
     for column in columns_to_compare:
