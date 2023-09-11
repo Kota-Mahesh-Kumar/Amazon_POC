@@ -207,7 +207,7 @@ styled_comparison_df = comparison_df.style.applymap(lambda cell: 'background-col
 st.dataframe(styled_comparison_df, use_container_width = True)
 
 def download_dataframe():
-    csv = dataframe_to_display.to_csv(index=False)
+    csv = comparison_df.to_csv(index=False)
     return csv
 
 csv = download_dataframe()
@@ -215,7 +215,7 @@ st.download_button(
     label="Download Data as CSV",
     data=csv,
     key="download_dataframe",
-    file_name="my_dataframe.csv",
+    file_name="Amazon_Poc_dataframe.csv",
     mime="text/csv"
 )
 
