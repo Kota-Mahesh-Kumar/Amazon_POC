@@ -120,7 +120,7 @@ st.set_page_config(layout="wide")
 
 st.markdown(
     """
-    <h1 style="text-align:center;">Dimension Analysis</h1>
+    <h1 style="text-align:center;">Attribute Analysis</h1>
     """,
     unsafe_allow_html=True
 )
