@@ -111,7 +111,7 @@ def plots_by_area():
         ax2.set_yticks([])
 
         ax2.set_xticklabels(stacked_df["Category"], rotation=45, ha="right")
-        ax2.set_title("Counts by Critical Attributes", fontsize=16)
+        ax2.set_title("Percentage by Critical Attributes", fontsize=16)
         ax2.legend()
     col2.pyplot(fig2)
 
