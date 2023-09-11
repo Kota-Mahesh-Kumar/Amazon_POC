@@ -202,6 +202,15 @@ def create_comparison_dataframe(df):
 
     comparison_df = pd.DataFrame(comparison_data)
     return comparison_df
+
+st.markdown("""
+<style>
+    .centered-header {
+        text-align: center;
+    }
+</style>
+""", unsafe_allow_html=True)
+st.markdown('<h1 class="centered-header">Summary Table</h1>', unsafe_allow_html=True)
 comparison_df = create_comparison_dataframe(dataframe_to_display)
 styled_comparison_df = comparison_df.style.applymap(lambda cell: 'background-color: green' if cell == 'MATCH' else ('background-color: #ff7f0e' if cell == 'MISMATCH' else ''), subset=comparison_df.columns[1:])
 st.dataframe(styled_comparison_df, use_container_width = True)
