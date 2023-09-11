@@ -41,9 +41,9 @@ def plots_by_area():
     col1, col2 = st.columns(2)
 
     data = {
-        "Category": ["cat1", "cat2", "cat3"],
-        "Total Count": [10, 15, 20],
-        "Mismatch Count": [5, 8, 12],
+        "Category": ['Electronics', 'Home & Kitchen', 'Grocery & Gourmet', 'Beauty', 'Health & Personal Care'],
+        "Total Count": [10, 15, 20, 31, 12],
+        "Mismatch Count": [5, 8, 12, 15, 14],
     }
 
     df = pd.DataFrame(data)
